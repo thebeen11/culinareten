@@ -1,40 +1,42 @@
 package com.example.topten.service;
 
-import com.example.topten.domain.TopChartDomain;
+import com.example.topten.domain.Court;
 import com.example.topten.domain.param.TopChartDomainParam;
-import com.example.topten.repository.TopChartRepository;
+import com.example.topten.repository.CourtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
-public class TopChartService {
+public class CourtService {
 
     @Autowired
-    private TopChartRepository topChartRepository;
+    private CourtRepository courtRepository;
 
-    public TopChartDomain createOne(TopChartDomain topChart){
-
-        return topChartRepository.save(topChart);
+    public Court saveCourt(Court court){
+        court.setId(UUID.randomUUID().toString());
+        court.setTotalVote(0);
+        return courtRepository.save(court);
     }
 
-    public Specification<TopChartDomain> filterName(String name){
+    public Specification<Court> filterName(String name){
         return (root,query,criteriaBuilder) -> {
             return criteriaBuilder.like(root.get("name"),"%"+name+"%");
         };
     }
 
-    public Specification<TopChartDomain> filterType(String type){
+    public Specification<Court> filterType(String type){
         return (root,query,criteriaBuilder) -> {
             return criteriaBuilder.equal(root.get("type"),type);
         };
     }
 
 
-    public List<TopChartDomain> findAllTopChart(TopChartDomainParam param){
-        Specification<TopChartDomain> specification = null;
+    public List<Court> findAllTopChart(TopChartDomainParam param){
+        Specification<Court> specification = null;
         if( param != null ) {
             if (param.getName() != null) {
                 specification = filterName(param.getName());
@@ -49,15 +51,15 @@ public class TopChartService {
             }
 
             if( specification != null ){
-                return topChartRepository.findAll(specification);
+                return courtRepository.findAll(specification);
             }
         }
 
-        return topChartRepository.findAll();
+        return courtRepository.findAll();
     }
 
-    public List<TopChartDomain> findAll(){
-        return topChartRepository.findAll();
+    public List<Court> findAll(){
+        return courtRepository.findAll();
     }
 
 }
