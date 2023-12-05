@@ -12,11 +12,10 @@ import lombok.Setter;
 @Getter
 @Table(name = "tbl_province")
 public class Province {
+
     @Id
     private String id;
 
     @Column(nullable = false, unique = true)
     private String name;
-
-    private String imageUrl;
 }

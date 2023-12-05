@@ -1,6 +1,7 @@
 package com.example.topten.service;
 
 import com.example.topten.domain.Category;
+import com.example.topten.exceptions.DataInvalidException;
 import com.example.topten.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     public Category findCategoryById(String id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("not found"));
+        return categoryRepository.getCategoryById(id);
     }
 
     public List<Category> findCategory(){

@@ -62,4 +62,7 @@ public class CourtService {
         return courtRepository.findAll();
     }
 
+    public void deleteCourt(String id){
+        courtRepository.deleteById(id);
+    }
 }

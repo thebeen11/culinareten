@@ -40,4 +40,9 @@ public class CourtController {
 
        return ResponseEntity.ok(court);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteCourt(@PathVariable  String id){
+        courtService.deleteCourt(id);
+    }
 }

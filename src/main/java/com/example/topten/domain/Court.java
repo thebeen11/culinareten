@@ -1,9 +1,7 @@
 package com.example.topten.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,25 +11,30 @@ import lombok.Setter;
 public class Court {
 
     @Id
-    private String id;
+    String id;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    String name;
 
+    @NotNull
     @ManyToOne
-    private Category category;
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    Category category;
 
-    private Integer totalVote;
+    Integer totalVote;
 
-    private String googleMap;
+    String googleMap;
 
-    private String address;
+    String address;
 
-    private String urbanVillage;
+    String urbanVillage;
 
-    private String district;
+    String district;
 
-    private String city;
+    String city;
 
-    private String province;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id", insertable = false, updatable = false)
+    Province province;
 }
